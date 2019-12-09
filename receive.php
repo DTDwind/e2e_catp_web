@@ -1,4 +1,7 @@
 <?php
+// 為超時做準備。
+// https://www.itread01.com/p/964655.html
+
 $model_dir="";
 $wav_dir="wav";
 $tmp_dir="tmp";
