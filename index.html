@@ -1,186 +1,48 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head leftmargin="40">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script language="javascript" src="js/jquery-1.8.3.js"></script>
-    <script language="javascript" src="js/bootstrap.js"></script>
-    <title>E2E 中文CATP</title>     
-    <br>
-    <div class="container" style="font-weight:bold;"><p class="text-info"><font size="5"><td align="center">   中文CATP<br></p></div>
-    <br><br>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="icon" href="pic/smil.jpg">
+    <script language="javascript" src="js/jquery-2.2.3.min.js"></script>
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+    <title>端對端的中文電腦輔助發音訓練</title>     
 </head>
-<body  leftmargin="40">
-    <div class="container">        
-    	<div class="container"><p class="text-info">1.按下Record開始錄音，結束錄音請按Stop(錄音前請先按下瀏覽器上方的允許使用麥克風): </p></div>
-        <input class="btn btn-primary" onclick="startRecording()" type="button" value="Record" />
-        <!-- <input class="btn btn-primary" onclick="stopRecording()" type="button" value="Stop" /> -->
-        <!-- <input class="btn btn-primary" onclick="playRecording()" type="button" value="Play" /> -->
-        <input style="display:none" onclick="uploadAudio()" type="button" value="提交" />
+<body>
+	<nav class="nav_bar text-center align-items-center">
+		<p>端對端的中文電腦輔助發音訓練</p>
+	</nav>
+	<div class="nav_push"></div>
+    <div class="container ">
+		<div class="row justify-content-center mt-4 pb-6">
+			<div class="col-md-6 text-center main_panal pt-2 ">
+				<p >1.按下"開始"開始錄音 </p>
+				
+				<!-- <input class="btn btn-primary" onclick="stopRecording()" type="button" value="Stop" /> -->
+				<!-- <input class="btn btn-primary" onclick="playRecording()" type="button" value="Play" /> -->
+				<div class="text-center justify-content-center" style="width:100%;">
+					<input class="btn_start mb-1" onclick="startRecording()" type="button" value="開始" />
+					<p>(錄音前請先按下瀏覽器上方的允許使用麥克風)</p>
+					<input style="display:none" onclick="uploadAudio()" type="button" value="提交" />
+				</div>
+				
+				<p >2.下方欄位可以決定要發音訓練的詞或句子</p>
+				<div class="text-center justify-content-center" style="width:100%;">
+					<input type="text" class="text-center train_text" id="t1" value="年輕">
+				</div>
+				<!-- <input class="btn btn-primary" onclick="setText1()" type="button" value="ex1" /> -->
+				<p class="mt-3">3.本次發音偵測結果</p> 
+				<div class="text-center justify-content-center mb-6" style="width:100%;">
+					<div id="reg" style="height:50px;"></div>
+				</div>
+				<BR>
+			</div>
+		</div>
     </div> 
-        <br>  <br>
-    <div class="container"> 
-    	<div class="container"><p class="text-info">2.下方欄位可以決定要發音訓練的詞或句子: </p></div>
-		<input type="text" id="t1" value="Hello!" style="width: 800px;">
-		<!-- <input class="btn btn-primary" onclick="setText1()" type="button" value="ex1" />
-		<input class="btn btn-primary" onclick="setText2()" type="button" value="ex2" />
-		<input class="btn btn-primary" onclick="setText3()" type="button" value="ex3" />
-		<input class="btn btn-primary" onclick="setText4()" type="button" value="ex4" /> -->
-    </div>
-    <p></p>
-    
-    <div></div>
-    <p></p><br>
-    <div class="container"> <!--style="font-size:20pt"-->
-      <div class="container"><p class="text-info">3.本次發音偵測結果: </p></div>      
-      <pre id="reg">
-      </pre>
-    </div>
-
     <script type="text/javascript" src="js/HZRecorder.js"></script>
-	<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-
-    <script>
-
-        var recorder;
-		var audio_context;
-		var myip;
-		var auto_stop = 3000
-
-        var audio = document.querySelector('audio');
-		window.onload = function init() {
-			/*try {
-			// webkit shim
-			window.AudioContext = window.AudioContext || window.webkitAudioContext;
-			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-			window.URL = window.URL || window.webkitURL;
-		
-			audio_context = new AudioContext;
-			console.log('Audio context set up.');
-			console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-			} catch (e) {
-			alert('No web audio support in this browser!');
-			}*/
-			
-			HZRecorder.get(function (rec) {
-                recorder = rec;
-				});
-			console.log('Requesting Microphone....');
-			
-			/*navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-			console.log('No live audio input: ' + e);
-		});*/
-		}
-
-	
-        function startRecording() {
-            /*HZRecorder.get(function (rec) {
-                recorder = rec;
-                recorder.start();
-            });*/
-            $('#reg').text("");
-			recorder.start();
-			console.log("Recording...");
-			setTimeout("stopRecording()",auto_stop)
-        }
-
-        function stopRecording() {
-            recorder.stop();
-            console.log("Stop Recording.");
-            console.log("Send the WAV file...");
-            uploadAudio(recorder.getBlob());
-        }
-		
-		function uploadAudio( blob ) {
-			var reader = new FileReader();
-			reader.onload = function(event){
-				var fd = {};
-				var now = new Date();
-				start = new Date().getTime();
-				fd["fname"] = (now.getYear()+1900)+""+(now.getMonth()+1)+""+now.getDate()+""+now.getHours()+""+now.getMinutes()+""+now.getSeconds(); //當前時間+亂數名稱(前3~6碼為當前時間(有個位數的可能)、後六碼100000~999999)，共9~12碼
-				fd["data"] = event.target.result;
-				fd["text1"] = document.getElementById("t1").value;
-				$.ajax({
-				type: 'POST',
-				url: 'receive.php',
-				data: fd,
-				dataType: 'text',
-				success: function(msg){
-                    $('#reg').text(msg);
-					end = new Date().getTime();
-					console.log("total time : "+(end - start) / 1000 + " sec");
-                },
-				error: function(xhr, ajaxOptions, thrownError){ 
-					console.log("error code : "+xhr.status+", "+thrownError);
-                }
-				
-				
-				/*}).done(function(data) {
-				  $('#reg').text(data);*/
-				});
-		};
-		reader.readAsDataURL(blob);
-		}
-
-		// function startUserMedia(stream) {
-		// 	var input = audio_context.createMediaStreamSource(stream);
-		// 	console.log('Media stream created.');
-    
-		// 	input.connect(audio_context.destination);
-		// 	console.log('Input connected to audio context destination.');
-    
-		// 	//recorder = new HZRecorder(input);
-		// 	HZRecorder.get(function (rec) {
-        //         recorder = rec;
-		// 		});
-		// 	console.log('Recorder initialised.');
-		// }
-
-		/*function uploadAudio() {
-            recorder.upload("Handler1.ashx", function (state, e) {
-                switch (state) {
-                    case 'uploading':
-                        //var percentComplete = Math.round(e.loaded * 100 / e.total) + '%';
-                        break;
-                    case 'ok':
-                        //alert(e.target.responseText);
-                        alert("上传成功");
-                        break;
-                    case 'error':
-                        alert("上传失败");
-                        break;
-                    case 'cancel':
-                        alert("上传被取消");
-                        break;
-                }
-            });
-        }*/
-		function setText1() {
-            var elem = document.getElementById("t1");
-			elem.value = "I like hiking.";
-			auto_stop = 3000;
-        }
-		
-		function setText2() {
-            var elem = document.getElementById("t1");
-			elem.value = "We help each other.";
-			auto_stop = 4000;
-        }
-		
-		function setText3() {
-            var elem = document.getElementById("t1");
-			elem.value = "I am looking for the bookstore.";
-			auto_stop = 6000;
-        }
-		
-		function setText4() {
-            var elem = document.getElementById("t1");
-			elem.value = "I would like to make an appointment to see Doctor Lin, please.";
-			auto_stop = 8000;
-        }
-    </script>
-
+	<script language="javascript" src="js/main.js"></script>
 </body>
 </html>

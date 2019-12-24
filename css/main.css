@@ -1,0 +1,54 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    background-color:rgb(14, 47, 70);
+}
+.nav_push{
+    height: 50px;
+}
+.nav_bar{
+    position: fixed;
+    top:0px;
+    width: 100%;
+    font-size: 26px;
+    height: 50px;
+    background-color: rgb(1, 5, 58);
+    color: #FFF;
+    align-items: center;
+    line-height:50px;
+    border-bottom-style:solid;
+    border-bottom-color:#FFF;
+    border-bottom-width:1px;
+}
+.main_panal{
+    background-color:rgb(14, 47, 70);
+    border-radius:10px;
+    color:#FFF;
+    font-size: 20px;
+    border-style:solid;
+    border-color:#FFF;
+    border-width:2px;
+}
+.btn_start{
+    color:#FFF;
+    border-radius:4px;
+    border-style:solid;
+    border-color:#FFF;
+    border-width:2;
+    background-color: rgba(0,0,0,0);
+}
+.train_text{
+    color:#FFF;
+    border-radius:4px;
+    border-style:solid;
+    border-color:#FFF;
+    border-width:2;
+    background-color: rgba(0,0,0,0);
+}
+#reg{
+    border-radius:4px;
+    border-style:solid;
+    border-color:#FFF;
+    border-width:2;
+    background-color: rgba(0,0,0,0);
+}
