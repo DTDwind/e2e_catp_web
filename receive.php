@@ -26,8 +26,9 @@ fclose($fp1);
 $fp2 = fopen($wav_dir."/".$wav_file_name."_ANSlist.txt", 'wb');//將最原始的答案存到硬碟中(未來發展用)
 fwrite($fp2, $answer_text."\n");
 
-$a= passthru("./run_decode.sh --wav_name ".$wav_file_name.".wav");
-echo "".$a;
+// $a= passthru("./run_decode.sh --wav_name ".$wav_file_name.".wav");
+$a = exec("./run_decode.sh --wav_name ".$wav_file_name.".wav");
+echo "QQ".$a;
 // passthru("./test.sh");
 
 $mtime = explode(" ", microtime()); 
