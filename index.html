@@ -19,12 +19,12 @@
     <div class="container ">
 		<div class="row justify-content-center mt-4 pb-6">
 			<div class="col-md-6 text-center main_panal pt-2 ">
-				<p >1.按下"開始"開始錄音 </p>
+				<p >1.按下"開始"開始錄音，說完後按結束 </p>
 				
 				<!-- <input class="btn btn-primary" onclick="stopRecording()" type="button" value="Stop" /> -->
 				<!-- <input class="btn btn-primary" onclick="playRecording()" type="button" value="Play" /> -->
 				<div class="text-center justify-content-center" style="width:100%;">
-					<input class="btn_start mb-1" onclick="startRecording()" type="button" value="開始" />
+					<input id="Recording_control_btn" class="btn_start mb-1" onclick="click_btn()" type="button" value="開始" />
 					<p>(錄音前請先按下瀏覽器上方的允許使用麥克風)</p>
 					<input style="display:none" onclick="uploadAudio()" type="button" value="提交" />
 				</div>
@@ -36,7 +36,7 @@
 				<!-- <input class="btn btn-primary" onclick="setText1()" type="button" value="ex1" /> -->
 				<p class="mt-3">3.本次發音偵測結果</p> 
 				<div class="text-center justify-content-center mb-6" style="width:100%;">
-					<div id="reg" style="height:50px;"></div>
+					<div id="reg"></div>
 				</div>
 				<BR>
 			</div>
