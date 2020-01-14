@@ -47,7 +47,7 @@ function startUserMedia(stream) {
     //input.connect(audio_context.destination);
     //__log('Input connected to audio context destination.');
     
-    recorder = new Recorder(input);
+    recorder = new Recorder(input,cfg={numChannels:1,sampleBits:16,sampleRate:16000,});
     __log('Recorder initialised.');
   }
 function startRecording() {
@@ -78,6 +78,7 @@ function upload_to_server(blob){
 		fd["fname"] = (now.getYear()+1900)+""+(now.getMonth()+1)+""+now.getDate()+""+now.getHours()+""+now.getMinutes()+""+now.getSeconds(); //當前時間+亂數名稱(前3~6碼為當前時間(有個位數的可能)、後六碼100000~999999)，共9~12碼
 		fd["data"] = e.target.result;
 		fd["text1"] = document.getElementById("t1").value;
+		$('#reg').text("辨識中...");
 		$.ajax({
 			type: 'POST',
 			url: 'receive.php',
@@ -86,20 +87,22 @@ function upload_to_server(blob){
 			success: function(msg){
 				// msg = msg.match(/[CDIS]+/g) 忽略I
 				string_len = 2
-				msg = msg.match(/[CDS]+/g)
-				CAPT_result = []
-				for(i=0;i<string_len;i++){
-					if(msg[i] == "C") CAPT_result[i] = 1
-					else CAPT_result[i] = 0
-				}
+				// msg = msg.match(/[CDS]+/g)
+				// CAPT_result = []
+				// for(i=0;i<string_len;i++){
+				// 	if(msg[i] == "C") CAPT_result[i] = 1
+				// 	else CAPT_result[i] = 0
+				// }
 				ans = document.getElementById("t1").value;
 				ans_result =""
-				for(i=0;i<string_len;i++){
-					if(CAPT_result[i])ans_result += "<span color=green>"+ans[i]+"</span>"
-					else ans_result += "<span style=color:red;>"+ans[i]+"</span>"
-				}
-				// $('#reg').text(ans_result);
-				$('#reg').append(ans_result)
+				ans_result = msg
+				// for(i=0;i<string_len;i++){
+				// 	if(CAPT_result[i])ans_result += "<span color=green>"+ans[i]+"</span>"
+				// 	else ans_result += "<span style=color:red;>"+ans[i]+"</span>"
+				// }
+
+				$('#reg').text(ans_result);
+				// $('#reg').append(ans_result)
 				end = new Date().getTime();
 				console.log("total time : "+(end - start) / 1000 + " sec");
 			},
